@@ -1,0 +1,53 @@
+.map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px !important;
+    margin-top: 50px; /* Increase margin-top for more space */
+  }
+  
+  .map-wrapper {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px;
+    margin: 0 auto; /* Center the map */
+  }
+  
+  #map {
+    height: 500px; /* Adjust the height as needed */
+    width: 100%;
+    border: 1px solid #ddd; /* Optional: Add a border to the map */
+    border-radius: 8px; /* Optional: Add border radius */
+  }
+  
+  
+  .address-display {
+    text-align: center;
+    margin-top: 10px; /* Space between the map and the address */
+  }
+  
+  button {
+    margin-top: 10px; /* Space between the address and the button */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .sticky-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Adjust the z-index as needed */
+    background-color: #fff; /* Optional: Add background color */
+  }
+  

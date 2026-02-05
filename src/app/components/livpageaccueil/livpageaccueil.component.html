@@ -1,0 +1,33 @@
+<app-base></app-base>
+
+<div class="main-container">
+  <div class="row">
+    <!-- Left Section -->
+    <div class="col-lg-6">
+      <section class="welcome-section">
+        <div class="container">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+              <h4 class="card-title">Bienvenue sur FDELIVERY</h4>
+              <h3 class="card-title">{{securityService.profile?.firstName?.toUpperCase()}} {{securityService.profile?.lastName?.toUpperCase()}}</h3>
+              <p class="card-text">
+                Nous sommes ravis de vous accueillir sur notre plateforme de gestion des livraisons. Ici, vous pouvez gérer vos livraisons de manière sécurisée et efficace.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="process-section">
+        <div class="container">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+              <h4 class="card-title">Vos Livraisons</h4>
+              <canvas id="livraisonBarChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+<app-base></app-base>
+
+<div class="main-container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6>Vos Livraisons</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr style="text-align: center;">
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numéro</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilisateur</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Statut</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 adresse">Gouvernorat</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trajet</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+
+
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 date">Date Livraison</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let livraison of livraisons" style="text-align: center;">
+                  <td>
+                    <ng-container *ngIf="livraison.statut === 'EnAttente' ">
+                      <div class="livraison-indicator badge-yellow"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'EnCours' ">
+                      <div class="livraison-indicator badge-orange"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'Terminee' ">
+                      <div class="livraison-indicator badge-green"></div>
+                    </ng-container>
+                  </td>
+                  
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.numero}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.user?.username}}</p>
+                  </td>
+                  
+                  <td>
+                        <p class="text-xs font-weight-bold mb-0">{{livraison.statut}}</p>
+                  </td>
+
+                  <td class="adresse">
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.gouvernorat}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.trajet}}</p>
+                  </td>
+                  <td *ngIf="livraison.trajet">
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.trajet * pricePerKm}}</p>
+                  </td>
+                  <td class="date">
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.datelivraison | date:'dd MMM, yyyy'}}</p>
+                  </td>
+                  <td>
+                    <div style="display: flex; align-items: center;">
+                      <button *ngIf=" livraison.statut === 'EnAttente' " class="btn btn-primary btn-sm" (click)="accepterLivraison(livraison)">Accepter</button>
+                      <button *ngIf="livraison.statut === 'EnAttente' " class="btn btn-danger btn-sm" (click)="annulerLivraison(livraison)">Annuler</button>
+                      <p *ngIf="showAnnulerMessage" style="margin-left: 5px;">Cette livraison est annulée.</p>
+
+                      <button *ngIf="( !showAnnulerMessage && livraison.statut === 'EnCours' )" class="btn btn-success btn-sm" (click)="confirmerLivraison(livraison.livrasionId)">Confirmer </button>
+                      <button class="btn btn-info btn-sm" (click)="showAdditionalInfo(livraison)">Plus d'info</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-container" *ngIf="selectedLivraison">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6>Informations supplémentaires</h6>
+          <button class="btn btn-secondary btn-sm retour-btn" (click)="retour()">Retour</button>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="custom-table table-02">
+              <tbody>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expéditeur:</th>
+                  <td class="adresse">
+                    <div class="scrollable-input">
+                      <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.user?.username}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Numéro:</th>
+                  <td class="adresse">
+                    <div class="scrollable-input">
+                      <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.user?.phone}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Adresse départ:</th>
+                  <td class="adresse">
+                    <div class="scrollable-input">
+                      <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.adressedepart}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Adresse destination:</th>
+                  <td class="adresse">
+                    <div class="scrollable-input">
+                      <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.adressedestination}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Livraison:</th>
+                  <td class="date">
+                    <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.datelivraison | date:'dd MMM, yyyy'}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description colis:</th>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.typecolis}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Poids colis:</th>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{selectedLivraison.poidscolis}}</p>
+                  </td>            
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

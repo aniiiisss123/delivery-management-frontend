@@ -1,0 +1,58 @@
+<app-base></app-base>
+
+<div class="main-container">
+  <div class="row">
+    <!-- Left Section -->
+    <div class="col-lg-6">
+      <section class="welcome-section">
+        <div class="container">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title text-center">Bienvenue sur FDELIVERY</h4>
+              <h3 class="card-title text-center">{{securityService.profile?.firstName?.toUpperCase()}} {{securityService.profile?.lastName?.toUpperCase()}}</h3>
+              <p class="card-text">
+                Nous sommes ravis de vous accueillir sur notre plateforme de gestion des livraisons. Ici, vous pouvez gérer vos envois de manière sécurisée et efficace.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="process-section">
+        <div class="container">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title text-center">Vos Livraisons</h4>
+              <canvas id="livraisonBarChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Section -->
+    <div class="col-lg-5">
+      <section class="process-section">
+        <div class="container">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title text-center">Comment ajouter un colis ?</h4>
+              <ol class="card-text">
+                <li>Commencez par cliquer sur le bouton ci-dessous pour accéder au formulaire d'ajout de colis.</li>
+                <li>Renseignez les informations nécessaires telles que l'adresse de départ, l'adresse de destination, la description du colis, etc.</li>
+                <li>Une fois les détails du colis ajoutés, appuyez sur le bouton "Ajouter Colis".</li>
+                <li>Une proposition des livreurs sera affichée avec le prix par km, le type de voiture et la marque de chaque livreur.</li>
+                <li>Choisissez un livreur selon votre choix.</li>
+                <li>Vous recevrez une notification confirmant l'acceptation du livreur pour la livraison.</li>
+                <li>Attendez votre livraison avec des notifications par e-mail pour chaque changement ou progrès de la livraison.</li>
+              </ol>
+              <div class="text-center mt-4">
+                <a class="btn btn-primary" (click)="ajoutercols()">Ajouter Colis</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

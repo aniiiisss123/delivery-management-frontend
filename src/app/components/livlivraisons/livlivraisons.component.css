@@ -1,0 +1,99 @@
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+  margin-left: 300px;
+  max-width: 76%;
+}
+
+.small-form {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-left: 550px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.small-form button {
+  width: 100%;
+}
+
+.custom-select {
+  width: 30%;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+}
+
+.table th, .table td {
+  text-align: center;
+  border-top: none;
+  padding: 5px; /* Add or adjust padding as needed */
+  margin-left: 150px;
+
+}
+
+.retour-btn {
+  margin-left: auto;
+}
+
+.scrollable-input {
+  max-width: 5000px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+.livraison-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.badge-yellow {
+  background-color: yellow;
+}
+
+.badge-orange {
+  background-color: orange;
+}
+
+.badge-green {
+  background-color: green;
+}
+.custom-table.table-02 {
+  width: 100%;
+  border-radius: 10px;
+  border-collapse: collapse;
+}
+
+.custom-table.table-02 th, .custom-table.table-02 td {
+  text-align: center;
+  border-top: none;
+  padding: 10px;
+}
+
+.custom-table.table-02 .retour-btn {
+  margin-left: auto;
+}
+
+.custom-table.table-02 .scrollable-input {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+

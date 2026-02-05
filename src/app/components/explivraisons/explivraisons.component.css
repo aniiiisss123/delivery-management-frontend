@@ -1,0 +1,73 @@
+.main-container{
+    margin-left: 300px ;
+    max-width: 76%;
+}
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+  .main-container{
+    margin-left: 300px ;
+    max-width: 76%;
+}
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .small-form {
+    max-width: 600px; 
+    margin: 0 auto;
+    margin-left: 550px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .small-form button {
+    width: 100%; 
+  }
+  .table {
+    width: 100%; 
+    max-width: 800px;
+    margin: 0 auto; 
+  }
+  .table th,
+  .table td {
+    text-align: center;
+  }
+  
+
+.scrollable-input {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.livraison-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.badge-yellow {
+  background-color: yellow;
+}
+
+.badge-orange {
+  background-color: rgb(255, 145, 0);
+}
+
+.badge-green {
+  background-color: green;
+}
+
+.badge-red {
+  background-color: red;
+}
+  

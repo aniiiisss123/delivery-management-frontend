@@ -1,0 +1,124 @@
+<app-base></app-base>
+
+<div class="main-container" *ngIf="showSuccessMessage">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header pb-0">
+        <h2 class="m-0" style="text-align: center;">Colis ajouté en attente de réponse du livreur</h2>
+        <button class="btn btn-primary" [routerLink]="['/explivraisons']">Retour</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-container" *ngIf="showLivraisonForm && !showSuccessMessage" class="small-form">
+  <div class="col-12">
+    <div class="card mb-4" style="background-color: #d0d0d0;">
+      <div class="card-header pb-0" style="background-color: #d0d0d0;">
+        <h3 class="m-0" style="text-align: center;">Etape 1 : Ajouter les informations de colis </h3>
+
+        <form [formGroup]="livraisonform" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Nom</label>
+            <input type="text" class="form-control" id="username" name="username" formControlName="username" required>
+            <div *ngIf="livraisonform.get('username')?.errors?.['required'] && livraisonform.get('username')?.touched" class="text-danger">Nom est obligatoire</div>
+          </div>
+         
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="button" (click)="openMap()">Choisir Adresses sur la Carte</button>
+          </div>
+          
+          <div class="form-group">
+            <label for="adressedepart">Adresse de départ</label>
+            <input id="adressedepart" type="text" class="form-control" formControlName="adressedepart" readonly>
+            <div *ngIf="livraisonform.get('adressedepart')?.errors?.['required'] && livraisonform.get('adressedepart')?.touched" class="text-danger">Adresse de départ est obligatoire</div>
+
+          </div>
+          <div class="form-group">
+            <label for="adressedestination">Adresse de destination</label>
+            <input id="adressedestination" type="text" class="form-control" formControlName="adressedestination" readonly>
+            <div *ngIf="livraisonform.get('adressedestination')?.errors?.['required'] && livraisonform.get('adressedestination')?.touched" class="text-danger">Adresse de destination est obligatoire</div>
+
+          </div>
+          <div class="form-group">
+            <label for="gouvernorat" class="input-label">Gouvernorat </label>
+            <select class="custom-select" id="gouvernorat" formControlName="gouvernorat">
+                <option value="">Choisir votre gouvernorat</option>
+                <option value="Tunis">Tunis</option>
+                <option value="Ariana">Ariana</option>
+                <option value="Benarous">Ben arous</option>
+                <option value="Mannouba">Mannouba</option>
+
+            </select>                                
+            <div *ngIf="livraisonform.get('gouvernorat')?.errors?.['required'] && livraisonform.get('gouvernorat')?.touched" class="text-danger">Gouvernorat est obligatoire</div>
+
+        </div>
+          <div class="form-group">
+            <label for="trajet">Trajet en km</label>
+            <input type="number" class="form-control" id="trajet" name="trajet" formControlName="trajet" readonly>
+          </div>
+          <div class="form-group">
+            <label for="datelivraison">Date de livraison</label>
+            <input type="date" class="form-control" id="datelivraison" name="datelivraison" formControlName="datelivraison" required>
+            <div *ngIf="livraisonform.get('datelivraison')?.errors?.['required'] && livraisonform.get('datelivraison')?.touched" class="text-danger">Date de livraison est obligatoire</div>
+          </div>
+          <div class="form-group">
+            <label for="typecolis">Description de colis </label>
+              <input type="text" class="form-control" id="typecolis" name="typecolis" formControlName="typecolis" required>
+              <div *ngIf="livraisonform.get('typecolis')?.errors?.['required'] && livraisonform.get('typecolis')?.touched" class="text-danger">Description de colis est obligatoire</div>
+          </div>
+          <div class="form-group">
+            <label for="poidscolis">Poids de colis en kg</label>
+            <input type="text" class="form-control" id="poidscolis" name="poidscolis" formControlName="poidscolis" required>
+            <div *ngIf="livraisonform.get('poidscolis')?.errors?.['required'] && livraisonform.get('poidscolis')?.touched" class="text-danger">Poids de colis est obligatoire</div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Etape Suivante</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-container" *ngIf="!showLivraisonForm && !showSuccessMessage">
+  <div class="col-12">
+    <div class="card mb-4" style="background-color: #d0d0d0;">
+      <div class="card-header pb-0" style="background-color: #d0d0d0;">
+        <h3 class="m-0" style="text-align: center;">Etape 2 : choisir un livreur</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Livreur</th>
+              <th>Gouvernorat</th>
+              
+              <th>Prix</th>
+              <th>Véhicule</th>
+              <th>Marque</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proposition of propositions">
+              <td>{{ proposition.user?.username }}</td>
+              <td>{{ proposition.user?.gouvernorat }}</td>
+             <td>{{ proposition.prix }}</td>
+
+              <ng-container *ngIf="proposition && proposition.user && proposition.user.type ">
+                <td>{{ proposition.user.type }}</td>
+                <td>{{ proposition.user.marque }}</td>
+              </ng-container>
+              
+              
+              
+              
+              <td>
+                <button *ngIf="livraisonId !== undefined && proposition.propoistionId !== undefined" class="btn btn-primary" (click)="onChooseProposition(livraisonId!, proposition.propoistionId!)">Choisir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

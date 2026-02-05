@@ -1,0 +1,236 @@
+<app-base></app-base>
+<div class="main-container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6> Vos Livraisons</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr style="text-align: center;">
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numéro</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Statut</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Gouvernerat</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trajet</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Livraison</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Livreur</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let livraison of filteredLivraisons" style="text-align: center;">
+                  <td>
+                    <ng-container *ngIf="livraison.statut === 'EnAttente' ">
+                      <div class="livraison-indicator badge-yellow"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'EnCours' ">
+                      <div class="livraison-indicator badge-orange"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'Terminee' ">
+                      <div class="livraison-indicator badge-green"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'Annulee' ">
+                      <div class="livraison-indicator badge-red"></div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.numero}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.statut}}</p>
+                  </td>
+                  <td>
+                    <div class="address-wrap">
+                      <p class="text-xs font-weight-bold mb-0">{{livraison.gouvernorat}}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.trajet}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.datelivraison | date:'dd MMM, yyyy'}}</p>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="livraison.userasLivreur; else noLivreur">
+                      {{ livraison.userasLivreur.username }}
+                    </ng-container>
+                    <ng-template #noLivreur>&nbsp;</ng-template>
+                  </td>
+                                    <td>
+                    <p class="text-xs font-weight-bold mb-0">{{ calculatePrix(livraison) }}</p>
+                  </td>
+                  <td class="align-middle">
+                    <button *ngIf="livraison.statut === 'Annulee'" class="btn btn-secondary btn-sm" (click)="showPropositions(livraison)">Choisir Livreur</button>
+                    <button class="btn btn-primary btn-sm" (click)="editLivraison(livraison)">Consulter</button>
+                    <button *ngIf="livraison.statut === 'EnAttente'" class="btn btn-danger btn-sm" (click)="annulerLivraison(livraison)">Annuler</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showEditForm && selectedLivraison" class="main-container">
+  <div class="col-12">
+    <div class="card mb-4" style="background-color: #d0d0d0;">
+      <div class="card-header pb-0" style="background-color: #d0d0d0;">
+        <h1 class="m-0" style="text-align: center;">Modifier Livraison</h1>
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-outline-secondary mt-3" (click)="cancelLivraisonEdit()">Annuler</button>
+          <button class="btn btn-primary mt-3" (click)="saveLivraison()">Sauvegarder</button>
+        </div>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row"><label for="numero">Numéro</label></th>
+                <td>
+                  <input type="text" id="numero" class="form-control" [(ngModel)]="selectedLivraison.livrasionId" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="statut">Statut</label></th>
+                <td>
+                  <input type="text" id="statut" class="form-control" [(ngModel)]="selectedLivraison.statut" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="gouvernorat">Gouvernerat:</label></th>
+                <td>
+                  <input type="text" id="gouvernorat" class="form-control" [(ngModel)]="selectedLivraison.gouvernorat">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="adressedepart">Adresse départ:</label></th>
+                <td>
+                  <input type="text" id="adressedepart" class="form-control" [(ngModel)]="selectedLivraison.adressedepart">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="adressedestination">Adresse destination:</label></th>
+                <td>
+                  <input type="text" id="adressedestination" class="form-control" [(ngModel)]="selectedLivraison.adressedestination">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="trajet">Trajet</label></th>
+                <td>
+                  <input type="text" id="trajet" class="form-control" [(ngModel)]="selectedLivraison.trajet">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="datelivraison">Date de livraison</label></th>
+                <td>
+                  <input type="date" id="datelivraison" class="form-control" [(ngModel)]="selectedLivraison.datelivraison">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="typecolis">Description de colis</label></th>
+                <td>
+                  <input type="text" id="typecolis" class="form-control" [(ngModel)]="selectedLivraison.typecolis">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="poidscolis">Poids de colis</label></th>
+                <td>
+                  <input type="text" id="poidscolis" class="form-control" [(ngModel)]="selectedLivraison.poidscolis">
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="userasLivreur">Livreur</label></th>
+                <td>
+                  <input type="text" id="userasLivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.username" disabled>
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="cinlivreur">Carte d'identité de Livreur</label></th>
+                <td>
+                  <input type="text" id="cinlivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.cin" disabled>
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="adresselivreur">Adresse Livreur</label></th>
+                <td>
+                  <div class="address-wrap">
+                    <input type="text" id="adresselivreur" class="scrollable-input" [(ngModel)]="selectedLivraison.userasLivreur.adresse" disabled>
+                  </div>          
+                      </td>
+              </tr>
+              
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="phonelivreur">Téléphone Livreur</label></th>
+                <td>
+                  <input type="text" id="phonelivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.phone" disabled>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="showPropositionsList" class="main-container">
+  <div class="col-12">
+    <div class="card mb-4" style="background-color: #d0d0d0;">
+      <div class="card-header pb-0" style="background-color: #d0d0d0;">
+        <h1 class="m-0" style="text-align: center;">Propositions de Livreurs</h1>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th>Livreur</th>
+                <th>Gouvernerat</th>
+                <th>Prix(dinar)</th>
+                <th>Télephone</th>
+                <th>vehicule</th>
+                <th>marque</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let proposition of propositions">
+                <td>{{ proposition.user?.username }}</td>
+                <td>{{ proposition.user?.gouvernorat }}</td>
+
+
+                <td>{{ proposition.prix }}</td>
+                <td>{{ proposition.user?.phone }}</td>
+
+                <ng-container *ngIf="proposition && proposition.user && proposition.user.type">
+                  <td>{{ proposition.user.type }}</td>
+                  <td>{{ proposition.user.marque }}</td>
+                </ng-container>
+                
+                <td>
+                  <button *ngIf="livraisonId !== undefined && proposition.propoistionId !== undefined" class="btn btn-primary" (click)="onChooseProposition(livraisonId!, proposition.propoistionId!)">Choisir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="!propositions.length" class="text-center">
+          <h2 class="m-0" style="text-align: center;">Colis ajouté en attente de réponse du livreur</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

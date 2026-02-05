@@ -1,0 +1,62 @@
+/* Custom Card */
+.custom-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; 
+  margin-top: 5%; /* Reduced margin */
+  padding: 10px; /* Added padding */
+}
+
+/* Custom Header */
+.custom-header {
+  background-color: hsl(351, 100%, 50%); 
+  color: white; 
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+}
+
+/* Custom Input */
+.custom-input {
+  border-color: #ced4da;
+  padding: 0.3rem 0.5rem; /* Reduced padding */
+  font-size: 0.8rem; /* Reduced font size */
+}
+
+/* Custom Select */
+.custom-select {
+  height: calc(2rem + 2px); /* Reduced height */
+  padding: 0.25rem 0.5rem; /* Reduced padding */
+  font-size: 0.8rem; /* Reduced font size */
+}
+
+/* Custom Button */
+.custom-btn {
+  background-color: #ff0062;
+  border-color: #ff0062;
+  padding: 0.3rem 1rem; /* Reduced padding */
+  font-size: 0.8rem; /* Reduced font size */
+}
+
+.custom-btn:hover {
+  background-color: #ff0062;
+  border-color: #ff0062;
+}
+
+/* Custom Button (Hover) */
+.custom-button:hover {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+/* Input Label */
+.input-label {
+  display: block; 
+  margin-bottom: 0.25rem; /* Reduced margin */
+  color: white; /* Ensures the label text is white */
+  font-size: 0.8rem; /* Reduced font size */
+}
+
+/* Error Message */
+.error-message {
+  color: white; /* Change to the desired color */
+  font-size: 0.7rem; /* Reduced font size */
+}

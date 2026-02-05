@@ -1,0 +1,116 @@
+<app-base></app-base>
+<div class="main-container" *ngIf="user">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6>Détails de votre compte</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="username">Nom d'utilisateur</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.username }}</p>
+                    <input *ngIf="isEditing" type="text" id="username" class="form-control" [(ngModel)]="user.username">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="firstname">Prénom</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.firstname }}</p>
+                    <input *ngIf="isEditing" type="text" id="firstname" class="form-control" [(ngModel)]="user.firstname">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="lastname">Nom</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.lastname }}</p>
+                    <input *ngIf="isEditing" type="text" id="lastname" class="form-control" [(ngModel)]="user.lastname">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="email">E-mail</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.email }}</p>
+                    <input *ngIf="isEditing" type="email" id="email" class="form-control" [(ngModel)]="user.email">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="phone">Téléphone</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.phone }}</p>
+                    <input *ngIf="isEditing" type="text" id="phone" class="form-control" [(ngModel)]="user.phone">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="gouvernorat">Gouvernorat</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.gouvernorat }}</p>
+                    <input *ngIf="isEditing" type="text" id="gouvernorat" class="form-control" [(ngModel)]="user.gouvernorat">
+                  </td>
+                </tr>
+                
+                <tr>
+                  <th scope="row"><label for="adresse">Adresse</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.adresse }}</p>
+                    <input *ngIf="isEditing" type="text" id="adresse" class="form-control" [(ngModel)]="user.adresse">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="datebirth">Date de naissance</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.datebirth }}</p>
+                    <input *ngIf="isEditing" type="date" id="datebirth" class="form-control" [(ngModel)]="user.datebirth">
+                  </td>
+                </tr>
+                <ng-container *ngIf="isLivreur ">
+                  <tr>
+                    <th scope="row"><label for="cin">Numero Carte d'identité</label></th>
+                    <td>
+                      <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.cin }}</p>
+                      <input *ngIf="isEditing" type="number" id="pricePerKm" class="form-control" [(ngModel)]="user.cin">
+                    </td>
+                  </tr>
+
+                <tr>
+                  <th scope="row"><label for="pricePerKm">Prix par km</label></th>
+                  <td>
+                    <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.pricePerKm }}</p>
+                    <input *ngIf="isEditing" type="number" id="pricePerKm" class="form-control" [(ngModel)]="user.pricePerKm">
+                  </td>
+                </tr>
+
+                  
+                  <tr >
+                    <th scope="row"><label for="type">Type Véhicule</label></th>
+                    <td>
+                      <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.type }}</p>
+                      <input *ngIf="isEditing" type="text" id="type" class="form-control" [(ngModel)]="user.type">
+                    </td>
+                  </tr>
+                  <tr >
+                    <th scope="row"><label for="marque">Marque Véhicule</label></th>
+                    <td>
+                      <p *ngIf="!isEditing" class="text-xs font-weight-bold mb-0">{{ user.marque }}</p>
+                      <input *ngIf="isEditing" type="text" id="marque" class="form-control" [(ngModel)]="user.marque">
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <button *ngIf="!isEditing" class="btn btn-primary" (click)="toggleEdit()">Modifier</button>
+          <button *ngIf="isEditing" class="btn btn-success" (click)="saveUser()">Sauvegarder</button>
+          <button *ngIf="isEditing" class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
+          <button *ngIf="!isEditing" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

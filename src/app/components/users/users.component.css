@@ -1,0 +1,41 @@
+.main-container{
+    margin-left: 300px ;
+    max-width: 76%;
+}
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .small-form {
+    max-width: 600px; 
+    margin: 0 auto; 
+    margin-left: 550px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .small-form button {
+    width: 100%; 
+  }
+#searchCriteria,
+#searchQuery {
+  width: 50%;
+}
+.table{
+  margin-left: 600x;
+}
+.custom-select-width {
+  width: 30%;
+}
+
+.add-user-button {
+  height: 50px;
+}
+.error-message {
+  color: white; /* Change to the desired color */
+  font-size: 0.9rem; /* Reduced font size */
+}
+

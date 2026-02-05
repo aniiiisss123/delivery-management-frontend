@@ -1,0 +1,45 @@
+.main-container {
+  display: flex;
+  margin-top: 30px;
+  margin-left: 250px;
+  justify-content: space-around; 
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px; 
+  background-color: #f0f0f0; 
+  background-color: #ffffff; 
+}
+
+.chart-container {
+  width: 40%; 
+  margin: 20px; 
+  padding: 20px;
+  background-color: #ffffff; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; 
+}
+.dashboard-title {
+  margin-left: 800px; 
+  margin-bottom: 30px; 
+  
+}
+
+.chart-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+canvas {
+  width: 100%; /* Make the canvas fill its container */
+  max-width: 100%; /* Ensure canvas does not exceed its container width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 300px; /* Limit maximum height for responsive design */
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    width: 90%; /* Adjust width for smaller screens */
+  }
+}

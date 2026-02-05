@@ -1,0 +1,51 @@
+<div class="sticky-top">
+    <div class="container-fluid d-none d-lg-block">
+      <div class="row align-items-center py-4 px-xl-5">
+        <div class="col-lg-3">
+          <a href="#" class="text-decoration-none" (click)="navigateToHome()">
+            <h1 class="m-0"><span class="text-primary">F</span>DELIVERY</h1>
+        </a>
+        </div>
+        <div class="col-lg-3 text-right">
+          <div class="d-inline-flex align-items-center">
+            <div class="text-left">
+              <h6 class="font-weight-semi-bold mb-1"></h6>
+              <small></small>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 text-right">
+          <div class="d-inline-flex align-items-center">
+            <i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+            <div class="text-left">
+              <h6 class="font-weight-semi-bold mb-1">Envoyez-nous un email</h6>
+              <small>fdelivery@gmail.com</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 text-right">
+          <div class="d-inline-flex align-items-center">
+            <i class="fa fa-2x fa-phone text-primary mr-3"></i>
+            <div class="text-left">
+              <h6 class="font-weight-semi-bold mb-1">Appelez-nous</h6>
+              <small>23503577</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-container">
+    <div class="map-wrapper">
+      <div id="map" class="map"></div>
+    </div>
+    <div class="button-container">
+      <button class="btn btn-primary" (click)="setAddressType('departure')">CHOISIR Adresse de départ</button>
+      <button class="btn btn-primary" (click)="setAddressType('destination')">CHOISIR Adresse de destination</button>
+    </div>
+    <p>Adresse de départ: {{ selectedDepartureAddress }}</p>
+    <p>Adresse de destination: {{ selectedDestinationAddress }}</p>
+    <p>Distance: {{ distance }} km</p>
+    <button class="btn btn-primary" (click)="confirmAddresses()" [disabled]="!selectedDepartureAddress || !selectedDestinationAddress">Confirmer Adresses</button>
+  </div>
+  

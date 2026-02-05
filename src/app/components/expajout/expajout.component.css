@@ -1,0 +1,41 @@
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+  
+.small-form {
+  max-width: 600px; 
+  margin: 0 auto; 
+  margin-left: 550px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.m-container{
+  text-align: center; 
+  margin-top: 50px;
+  margin-left: 00px;
+
+}
+.main-container {
+  text-align: center; 
+  margin-top: 50px; 
+  margin-left: 200px;
+}
+.table {
+  width: 100%; 
+  max-width: 800px;
+  margin: 0 auto; 
+}
+.table th,
+.table td {
+  text-align: center;
+}
+
+.btn-primary {
+  display: block;
+  margin: 0 auto;
+}

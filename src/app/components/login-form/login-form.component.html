@@ -1,0 +1,101 @@
+<body>
+  <div class="container-fluid d-none d-lg-block">
+      <div class="row align-items-center py-4 px-xl-5">
+        <div class="col-lg-3">
+          <a href="#" class="text-decoration-none" (click)="navigateToHome()">
+              <h1 class="m-0"><span class="text-primary">F</span>DELIVERY</h1>
+          </a>
+      </div>
+      
+      
+          <div class="col-lg-3 text-right">
+              <div class="d-inline-flex align-items-center">
+                  <div class="text-left">
+                      <h6 class="font-weight-semi-bold mb-1"></h6>
+                      <small></small>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 text-right">
+              <div class="d-inline-flex align-items-center">
+                  <i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+                  <div class="text-left">
+                      <h6 class="font-weight-semi-bold mb-1">Envoyez-nous un email</h6>
+                      <small>fdelivery@gmail.com</small>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 text-right">
+              <div class="d-inline-flex align-items-center">
+                  <i class="fa fa-2x fa-phone text-primary mr-3"></i>
+                  <div class="text-left">
+                      <h6 class="font-weight-semi-bold mb-1">Appelez-nous</h6>
+                      <small>23503577</small>
+                  </div>
+              </div>
+          </div>
+          
+          
+      </div>
+  </div>
+  <div class="container-fluid p-0 pb-5 mb-5">
+    <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#header-carousel" data-slide-to="1"></li>
+            <li data-target="#header-carousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-item active" style="min-height: 300px;">
+            <img class="position-relative w-100" src="../../assets/img/full-shot-man-delivering-box.jpg" alt="Image" style="min-height: 300px; object-fit: cover;">
+            <div class="carousel-caption d-flex align-items-center justify-content-center">
+                <div class="col-lg-5" style="margin-left: 40px;margin-top: 50px;">
+                    <div class="card custom-card border-0">
+                        <div class="card-header custom-header bg-light text-center p-4">
+                            <h1 class="m-0 text-primary">Connectez-vous maintenant</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control custom-input" placeholder="Votre nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control custom-input" placeholder="Votre mot de passe" required>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block border-0 py-3 custom-btn" type="submit">Connectez-vous</button>
+                                </div>
+                                    <div class="form-group text-center">
+                                    <div>
+                                      <a class="forgot-password" style="color: white; font-size: smaller; text-decoration: underline; cursor: pointer;">Mot de passe oublié?</a>
+                                    </div>
+                                    <div>
+                                      <a (click)="navigateToform()" class="custom-button text-decoration-none text-white">Je n'ai pas de compte</a>
+                                    </div>
+                                  </div>
+                                <div class="form-group text-center">
+
+                                    <button class="btn btn-outline-light mt-3" [routerLink]="'/home'">Retour</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+     <script src="lib/easing/easing.min.js"></script>
+     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+ 
+     <script src="mail/jqBootstrapValidation.min.js"></script>
+     <script src="mail/contact.js"></script>
+ 
+     <script src="js/main.js"></script>
+      
+    
+
+

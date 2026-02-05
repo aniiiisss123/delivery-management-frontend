@@ -1,0 +1,26 @@
+
+  
+  .main-container {
+    text-align: center; 
+    margin-top: 50px; 
+    margin-left: 500px;
+    width: 100%;
+  }
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 16px;
+}

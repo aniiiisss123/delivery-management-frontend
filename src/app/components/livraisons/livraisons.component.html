@@ -1,0 +1,317 @@
+<app-base></app-base>
+
+<div class="main-container"*ngIf="showSuccessMessage"  >
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header pb-0">
+        <h2 class="m-0" style="text-align: center;">    Colis ajouté en attente de réponse du livreur</h2>
+        <div class="text-center"> 
+          <button class="btn btn-primary"(click)="dismissMessage()">Retour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div>
+  <div *ngIf="showLivraisonForm  && !showSuccessMessage && showAddForm"  class="small-form">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0" style="background-color: #d0d0d0;">
+          <h1 class="m-0" style="text-align: center;">Ajouter Livraison</h1>
+
+          <form [formGroup]="livraisonform"  (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="username">Nom</label>
+              <input type="text" class="form-control" id="username" name="username" formControlName="username" required>
+              <div *ngIf="livraisonform.get('username')?.errors?.['required'] && livraisonform.get('username')?.touched" class="text-danger">Nom est obligatoire</div>
+            </div>
+            
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="adressedepart" id="adressedepart" formControlName="adressedepart">
+              <div *ngIf="livraisonform.get('adressedepart')?.errors?.['required'] && livraisonform.get('adressedepart')?.touched" class="text-danger">Adresse de départ est obligatoire</div>
+
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="adressedestination" id="adressedestination" formControlName="adressedestination">
+            <div *ngIf="livraisonform.get('adressedestination')?.errors?.['required'] && livraisonform.get('adressedestination')?.touched" class="text-danger">Adresse de destination est obligatoire</div>
+
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="gouvernorat" id="gouvernorat" formControlName="gouvernorat">
+            <div *ngIf="livraisonform.get('gouvernorat')?.errors?.['required'] && livraisonform.get('gouvernorat')?.touched" class="text-danger">Gouvernorat est obligatoire</div>
+
+          </div>
+            
+            <div class="form-group">
+              <label for="trajet">Trajet</label>
+              <input type="number" class="form-control" id="trajet" name="trajet" formControlName="trajet" required>
+              <div *ngIf="livraisonform.get('trajet')?.errors?.['required'] && livraisonform.get('trajet')?.touched" class="text-danger">Trajet est obligatoire</div>
+
+            </div>
+            <div class="form-group">
+              <label for="datelivraison">Date de livraison</label>
+              <input type="date" class="form-control" id="datelivraison" name="datelivraison" formControlName="datelivraison" required>
+              <div *ngIf="livraisonform.get('datelivraison')?.errors?.['required'] && livraisonform.get('datelivraison')?.touched" class="text-danger">Date de livraison est obligatoire</div>
+
+            </div>
+            <div class="form-group">
+              <label for="typecolis">Type de colis</label>
+              <input type="text" class="form-control" id="typecolis" name="typecolis" formControlName="typecolis" required>
+              <div *ngIf="livraisonform.get('typecolis')?.errors?.['required'] && livraisonform.get('typecolis')?.touched" class="text-danger">Description de colis est obligatoire</div>
+
+            </div>
+            <div class="form-group">
+              <label for="poidscolis">Poids de colis</label>
+              <input type="text" class="form-control" id="poidscolis" name="poidscolis" formControlName="poidscolis" required>
+              <div *ngIf="livraisonform.get('poidscolis')?.errors?.['required'] && livraisonform.get('poidscolis')?.touched" class="text-danger">Poids de colis est obligatoire</div>
+
+            </div>
+            <button type="submit"  class="btn btn-primary">Enregistrer colis</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container" *ngIf="!showLivraisonForm  && !showSuccessMessage && showAddForm" >
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h2>All Propositions:</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Livreur</th>
+                <th>Télephone</th>
+                <th>Prix</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let proposition of propositions">
+                <td>{{ proposition.user?.username }}</td>
+                <td>{{ proposition.user?.phone }}</td>
+                <td>{{ proposition.prix }}</td>
+                <td>
+                  <button *ngIf="livraisonId !== undefined && proposition.propoistionId !== undefined" class="btn btn-primary" (click)="onChooseProposition(livraisonId!, proposition.propoistionId!)">Choose</button>
+                </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-container" *ngIf="!showAddForm && !showSuccessMessage ">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6>Livraisons</h6>
+          <div class="d-flex justify-content-between align-items-center">
+            <select class="form-select form-select-sm custom-select" [(ngModel)]="searchCriteria" (change)="filterLivraisons()" title="Search Criteria">
+              <option value="numero">Numéro</option>
+              <option value="statut">Statut</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Rechercher des livraisons" [(ngModel)]="searchQuery" (input)="filterLivraisons()">
+            <button class="btn btn-primary btn-sm me-2" style="height: 50px;" (click)="toggleAddForm()">Ajouter Livraison</button>
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr style="text-align: center;">
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numéro</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expéditeur</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Statut</th>
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Gouvernorat</th>
+
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trajet</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Livraison</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description </th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Poids </th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Livreur</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let livraison of filteredLivraisons" style="text-align: center;">
+                 <td>
+                    <ng-container *ngIf="livraison.statut === 'EnAttente' ">
+                      <div class="livraison-indicator badge-yellow"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'EnCours' ">
+                      <div class="livraison-indicator badge-orange"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'Terminee' ">
+                      <div class="livraison-indicator badge-green"></div>
+                    </ng-container>
+                    <ng-container *ngIf="livraison.statut === 'Annulee' ">
+                      <div class="livraison-indicator badge-red"></div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.numero || ''}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.user?.username|| ''}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.statut|| ''}}</p>
+                  </td>
+                  
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.gouvernorat}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.trajet}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.datelivraison | date:'dd MMM, yyyy'}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.typecolis}}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{livraison.poidscolis}}</p>
+                    <td>
+                      <ng-container *ngIf="livraison.userasLivreur; else noLivreur">
+                        {{ livraison.userasLivreur.username }}
+                      </ng-container>
+                      <ng-template #noLivreur>&nbsp;</ng-template>
+                    </td>
+                    
+                  
+                  <td class="align-middle">
+                    
+                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit livraison" (click)="editLivraison(livraison)">
+                      Modifier
+                    </a>
+                  </td>
+                  <td style="cursor: pointer;" (click)="deleteLivraison(livraison.livrasionId)">
+                    <i class="fas fa-trash"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showEditForm && selectedLivraison" class="main-container">
+  <div class="col-12">
+    <div class="card mb-4" style="background-color: #d0d0d0;">
+      <div class="card-header pb-0" style="background-color: #d0d0d0;">
+        <h1 class="m-1" style="text-align: center;">Modifier Livraison</h1>
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-outline-secondary mt-3" (click)="cancelEdit()">Annuler</button>
+          <button class="btn btn-primary mt-3" (click)="saveLivraison()">Sauvegarder</button>
+        </div>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table">
+            <tbody>
+              
+              <tr>
+                <th scope="row"><label for="numero">Numéro</label></th>
+                <td>
+                  <input type="text" id="numero" class="form-control" [(ngModel)]="selectedLivraison.numero" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="expediteur">Expéditeur</label></th>
+                <td>
+                  <input type="text" id="expediteur" class="form-control" [value]="selectedLivraison.user?.username" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="statut">Statut</label></th>
+                <td>
+                  <input type="text" id="statut" class="form-control" [(ngModel)]="selectedLivraison.statut" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="gouvernorat">Gouvernorat</label></th>
+                <td>
+                  <input type="text" id="gouvernorat" class="form-control" [(ngModel)]="selectedLivraison.gouvernorat" >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="adressedepart">Adresse depart</label></th>
+                <td>
+                  <input type="text" id="adressedepart" class="form-control" [(ngModel)]="selectedLivraison.adressedepart" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="adressedestination">Adresse destination</label></th>
+                <td>
+                  <input type="text" id="adressedestination" class="form-control" [(ngModel)]="selectedLivraison.adressedestination " disabled >
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="trajet">Trajet</label></th>
+                <td>
+                  <input type="number" id="trajet" class="form-control" [(ngModel)]="selectedLivraison.trajet" disabled>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="dateLivraison">Date de livraison</label></th>
+                <td>
+                  <input type="date" id="dateLivraison" class="form-control" [(ngModel)]="selectedLivraison.datelivraison">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="typeColis">Type de colis</label></th>
+                <td>
+                  <input type="text" id="typeColis" class="form-control" [(ngModel)]="selectedLivraison.typecolis">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="poidsColis">Poids de colis</label></th>
+                <td>
+                  <input type="text" id="poidsColis" class="form-control" [(ngModel)]="selectedLivraison.poidscolis">
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="userasLivreur">Livreur</label></th>
+                <td>
+                  <input type="text" id="userasLivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.username" disabled>
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="cinlivreur">Carte d'identité de Livreur</label></th>
+                <td>
+                  <input type="text" id="cinlivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.cin" disabled>
+                </td>
+              </tr>
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="adresselivreur">Adresse Livreur</label></th>
+                <td>
+                  <div class="address-wrap">
+                    <input type="text" id="adresselivreur" class="scrollable-input" [(ngModel)]="selectedLivraison.userasLivreur.adresse" disabled>
+                  </div>          
+                      </td>
+              </tr>
+              
+              <tr *ngIf="selectedLivraison.userasLivreur">
+                <th scope="row"><label for="phonelivreur">Téléphone Livreur</label></th>
+                <td>
+                  <input type="text" id="phonelivreur" class="form-control" [(ngModel)]="selectedLivraison.userasLivreur.phone" disabled>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

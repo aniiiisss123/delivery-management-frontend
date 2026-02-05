@@ -1,0 +1,303 @@
+<app-base></app-base>
+
+<div *ngIf="showAddForm" class="small-form">
+  <div class="card-header bg-light text-center p-4">
+    <h1 class="m-0">Ajouter Utilisateur</h1>
+  </div>
+  <div class="card-body rounded-bottom bg-primary p-5">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" placeholder="Votre nom" id="username" formControlName="username" class="form-control" autocomplete="username">
+        <div *ngIf="userForm.get('username')?.errors?.['required'] && userForm.get('username')?.touched" class="error-message">Nom d'utilisateur est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Votre prénom" id="firstname" formControlName="firstname">
+        <div *ngIf="userForm.get('firstname')?.errors?.['required'] && userForm.get('firstname')?.touched" class="error-message">Prénom est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Votre nom" id="lastname" formControlName="lastname">
+        <div *ngIf="userForm.get('lastname')?.errors?.['required'] && userForm.get('lastname')?.touched" class="error-message">Nom est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Votre mot de passe" id="password" formControlName="password" class="form-control" autocomplete="current-password">
+        <div *ngIf="userForm.get('password')?.errors?.['required'] && userForm.get('password')?.touched" class="error-message">Mot de passe est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Votre e-mail" id="email" formControlName="email">
+        <div *ngIf="userForm.get('email')?.errors?.['required'] && userForm.get('email')?.touched" class="error-message">Email est obligatoire</div>
+                                      <div *ngIf="userForm.get('email')?.errors?.['email'] && userForm.get('email')?.touched" class="error-message">Email invalide</div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Votre numéro de téléphone" id="phone" formControlName="phone">
+        <div *ngIf="userForm.get('phone')?.errors?.['required'] && userForm.get('phone')?.touched" class="error-message">Numéro de téléphone est obligatoire</div>
+        <div *ngIf="userForm.get('phone')?.errors?.['pattern'] && userForm.get('phone')?.touched" class="error-message">Le numéro de téléphone doit contenir exactement 8 chiffres</div>
+      </div>
+      <div class="form-group">
+        <label for="gouvernorat" class="input-label" style="color: white;">Gouvernorat</label>
+        <select class="custom-select" id="gouvernorat" formControlName="gouvernorat">
+          <option value="">Choisir votre gouvernorat</option>
+          <option value="Tunis">Tunis</option>
+          <option value="Ariana">Ariana</option>
+          <option value="Benarous">Ben arous</option>
+          <option value="Mannouba">Mannouba</option>
+        </select>
+        <div *ngIf="userForm.get('gouvernorat')?.errors?.['required'] && userForm.get('gouvernorat')?.touched" class="error-message">Gouvernorat est obligatoire</div>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Votre adresse" id="adresse" formControlName="adresse">
+        <div *ngIf="userForm.get('adresse')?.errors?.['required'] && userForm.get('adresse')?.touched" class="error-message">Adresse est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control" placeholder="Votre date de naissance" id="datebirth" formControlName="datebirth">
+        <div *ngIf="userForm.get('datebirth')?.errors?.['required'] && userForm.get('datebirth')?.touched" class="error-message">Date de naissance est obligatoire</div>
+
+      </div>
+      <div class="form-group">
+        <label for="typeUser" class="input-label" style="color: white;">Type d'utilisateur</label>
+          <select class="custom-select" id="typeUser" style="background-color: white;" name="userType" formControlName="typeUser" (change)="onChangeTypeUser($event)">
+            <option value="">Choisir Type d'utilisateur</option>
+
+            <option [value]="Profile.Expediteur" selected>Expéditeur</option>
+            <option [value]="Profile.Livreur">Livreur</option>
+            <option [value]="Profile.ADMIN">Admin</option>
+          </select>
+          <div *ngIf="userForm.get('typeUser')?.errors?.['required'] && userForm.get('typeUser')?.touched" class="error-message">Type d'utilisateur est obligatoire</div>
+
+        </div>
+
+      <ng-container *ngIf="isLivreur">
+        <div class="form-group">
+          <label for="cin" class="input-label">Numéro de votre carte d'identité</label>
+          <input type="number" class="form-control" placeholder="ex.1364923587" id="datebirth" formControlName="cin">
+          <div *ngIf="userForm.get('cin')?.errors?.['required'] && userForm.get('cin')?.touched" class="error-message">Numéro de  carte d'identité est obligatoire</div>
+      </div>
+        <div class="form-group">
+          <select class="custom-select" id="typeVehicule" formControlName="typeVehicule">
+            <option value="">Choisir le type de véhicule</option>
+            <option value="voiture">Voiture</option>
+            <option value="moto">Moto</option>
+            <option value="camion">Camion</option>
+        </select>
+          <div *ngIf="userForm.get('typeVehicule')?.errors?.['required'] && userForm.get('typeVehicule')?.touched" class="error-message">Type de véhicule est obligatoire</div>
+
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Marque de véhicule" id="marque" formControlName="marque">
+          <div *ngIf="userForm.get('marque')?.errors?.['required'] && userForm.get('marque')?.touched" class="error-message">Marque du véhicule est obligatoire</div>
+
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Prix par Km en dinar" id="pricePerKm" formControlName="pricePerKm">
+          <div *ngIf="userForm.get('pricePerKm')?.errors?.['required'] && userForm.get('pricePerKm')?.touched" class="error-message">Prix par Km est obligatoire</div>
+          <div *ngIf="userForm.get('pricePerKm')?.errors?.['min'] && userForm.get('pricePerKm')?.touched" class="error-message">Le prix doit être supérieur à 0.5</div>
+          <div *ngIf="userForm.get('pricePerKm')?.errors?.['max'] && userForm.get('pricePerKm')?.touched" class="error-message">Le prix doit être inférieur à 1</div>
+
+
+        </div>
+      </ng-container>
+
+      <button type="submit" class="btn btn-dark btn-block border-0 py-3">Ajouter</button>
+      <button type="button" class="btn btn-outline-secondary mt-3" (click)="toggleAddForm()">Retour</button>
+    </form>
+  </div>
+</div>
+
+
+<div *ngIf="!showAddForm">
+  <div class="main-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4" style="background-color: #d0d0d0;">
+          <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+            <h6>Tableau des utilisateurs</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <select id="searchCriteria" class="form-select form-select-sm custom-select-width" [(ngModel)]="searchCriteria" (change)="filterUsers()" title="Critère de recherche">
+                  <option value="username">Nom d'utilisateur</option>
+                  <option value="typeUser">Type d'utilisateur</option>
+              </select>
+              <input type="text" class="form-control" placeholder="Rechercher des utilisateurs" [(ngModel)]="searchQuery" (input)="filterUsers()">
+              <button class="btn btn-primary btn-sm me-2 add-user-button" (click)="toggleAddForm()">Ajouter Utilisateur</button>
+          </div>
+          
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom d'utilisateur</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">prénom</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
+
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">E-mail</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Téléphone</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gouvernorat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date de naissance</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type d'utilisateur</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usr of filteredUsers" style="text-align: center;">
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.username}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.firstname}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.lastname}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.email}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.phone}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.gouvernorat}}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ usr.datebirth | date:'dd MMM, yyyy' }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{usr.typeUser}}</p>
+                    </td>
+                    <td class="align-middle">
+                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" (click)="editUser(usr)">
+                        Modifier
+                      </a>
+                    </td>
+                    <td style="cursor: pointer;" (click)="deleteUser(usr.userId)">
+                      <i class="fas fa-trash"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="selectedUser && !showAddForm" class="main-container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4" style="background-color: #d0d0d0;">
+        <div class="card-header pb-0 text-center" style="background-color: #d0d0d0;">
+          <h6>Détails de l'utilisateur</h6>
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary mt-3" (click)="cancelEdit()">Annuler</button>
+            <button class="btn btn-primary mt-3" (click)="saveUser()">Sauvegarder</button>
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="username">Nom d'utilisateur</label></th>
+                  <td>
+                    <input type="text" id="username" class="form-control" [(ngModel)]="selectedUser.username" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="firstname">Prénom</label></th>
+                  <td>
+                    <input type="text" id="firstname" class="form-control" [(ngModel)]="selectedUser.firstname">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="lastname">Nom</label></th>
+                  <td>
+                    <input type="text" id="lastname" class="form-control" [(ngModel)]="selectedUser.lastname">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="email">E-mail</label></th>
+                  <td>
+                    <input type="email" id="email" class="form-control" [(ngModel)]="selectedUser.email">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="phone">Téléphone</label></th>
+                  <td>
+                    <input type="text" id="phone" class="form-control" [(ngModel)]="selectedUser.phone">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="gouvernorat">Gouvernorat</label></th>
+                  <td>
+                    <input type="text" id="gouvernorat" class="form-control" [(ngModel)]="selectedUser.gouvernorat">
+
+                  
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="adresse">Adresse</label></th>
+                  <td>
+                    <input type="text" id="adresse" class="form-control" [(ngModel)]="selectedUser.adresse">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="datebirth">Date de naissance</label></th>
+                  <td>
+                    <input type="date" id="datebirth" class="form-control" [(ngModel)]="selectedUser.datebirth">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="typeUser">Type d'utilisateur</label></th>
+                  <td>
+                    <select id="typeUser" class="form-control" [(ngModel)]="selectedUser.typeUser" disabled>
+                      <option [value]="Profile.Expediteur">Expéditeur</option>
+                      <option [value]="Profile.Livreur">Livreur</option>
+                      <option [value]="Profile.ADMIN">Admin</option>
+                    </select>
+                  </td>
+                </tr>
+                <ng-container  *ngIf="isLivreur">
+                  <tr>
+                    <th scope="row"><label for="cin">Numero carte d'identité</label></th>
+                    <td>
+                      <input type="number" id="cin" class="form-control" [(ngModel)]="selectedUser.cin" disabled>
+                    </td>
+                  </tr>
+                <tr>
+                  <th scope="row"><label for="pricePerKm">Prix par Km</label></th>
+                  <td>
+                    <input type="text" id="pricePerKm" class="form-control" [(ngModel)]="selectedUser.pricePerKm" disabled>
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="isLivreur && selectedUser ">
+                <tr>
+                  <th scope="row"><label for="typeVehicule">Type Vehicule</label></th>
+                  <td>
+                    <input type="text" id="typeVehicule" class="form-control" [ngModel]="selectedUser.type" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="marqueVehicule">Marque de Véhicule</label></th>
+                  <td>
+                    <input type="text" id="marqueVehicule" class="form-control" [ngModel]="selectedUser.marque" disabled>
+                  </td>
+                </tr>
+              </ng-container>
+              
+              
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
