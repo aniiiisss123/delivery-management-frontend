@@ -1,27 +1,26 @@
-# PfeFrontEnd
+# Delivery Management System – Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+This project is the frontend part of a delivery management platform developed using **Angular**.
+It provides a modern and responsive user interface for managing deliveries, users, and dashboards.
 
-## Development server
+## 🚀 Features
+- User authentication and authorization
+- Delivery and order management interface
+- Interactive dashboards and statistics
+- Responsive UI using modern Angular components
+- Integration with RESTful APIs
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠️ Technologies
+- Angular
+- TypeScript
+- HTML5 / CSS3
+- Bootstrap / Angular Material
+- REST API integration
 
-## Code scaffolding
+## 🔗 Backend Integration
+The frontend communicates with a Spring Boot backend secured using **Keycloak** for authentication and role-based access control.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## ▶️ Run the project
+```bash
+npm install
+ng serve
