@@ -24,3 +24,5 @@ The frontend communicates with a Spring Boot backend secured using **Keycloak** 
 ```bash
 npm install
 ng serve
+## 👤 Author
+**Anis Saidi** - [GitHub](https://github.com/aniiiisss123)
